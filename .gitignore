@@ -1,0 +1,19 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+venv/
+
+# Environment variables
+.env
+
+# Alembic
+alembic/versions/*.pyc
+
+# Frontend
+frontend/node_modules/
+frontend/dist/
+
+# Docker
+*.log
