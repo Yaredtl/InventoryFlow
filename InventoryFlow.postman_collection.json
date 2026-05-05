@@ -1,0 +1,310 @@
+{
+  "info": {
+    "name": "InventoryFlow API",
+    "description": "Colección completa para probar el backend de InventoryFlow",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:8000",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Health",
+      "item": [
+        {
+          "name": "Health Check",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/health"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Categories",
+      "item": [
+        {
+          "name": "List Categories",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/api/v1/categories"
+          }
+        },
+        {
+          "name": "Get Category by ID",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/api/v1/categories/1"
+          }
+        },
+        {
+          "name": "Create Category",
+          "request": {
+            "method": "POST",
+            "url": "{{base_url}}/api/v1/categories",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Bebidas\",\n  \"description\": \"Refrescos, agua y bebidas energéticas\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Create Category (Lácteos)",
+          "request": {
+            "method": "POST",
+            "url": "{{base_url}}/api/v1/categories",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Lácteos\",\n  \"description\": \"Leche, yogur y quesos\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Update Category",
+          "request": {
+            "method": "PATCH",
+            "url": "{{base_url}}/api/v1/categories/1",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"description\": \"Descripción actualizada\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Delete Category",
+          "request": {
+            "method": "DELETE",
+            "url": "{{base_url}}/api/v1/categories/99"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Products",
+      "item": [
+        {
+          "name": "List Products",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/api/v1/products"
+          }
+        },
+        {
+          "name": "Get Product by ID",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/api/v1/products/1"
+          }
+        },
+        {
+          "name": "Get Low Stock Products",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/api/v1/products/low-stock"
+          }
+        },
+        {
+          "name": "Create Product",
+          "request": {
+            "method": "POST",
+            "url": "{{base_url}}/api/v1/products",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Coca Cola 33cl\",\n  \"sku\": \"BEB-COCA-001\",\n  \"price\": 1.20,\n  \"current_stock\": 100,\n  \"min_stock_threshold\": 20,\n  \"category_id\": 1\n}"
+            }
+          }
+        },
+        {
+          "name": "Create Product (Stock Bajo)",
+          "request": {
+            "method": "POST",
+            "url": "{{base_url}}/api/v1/products",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Leche Entera 1L\",\n  \"sku\": \"LAC-LEC-001\",\n  \"price\": 0.95,\n  \"current_stock\": 5,\n  \"min_stock_threshold\": 15,\n  \"category_id\": 2\n}"
+            }
+          }
+        },
+        {
+          "name": "Create Product (Sin Categoría)",
+          "request": {
+            "method": "POST",
+            "url": "{{base_url}}/api/v1/products",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Producto sin categoría\",\n  \"sku\": \"GEN-001\",\n  \"price\": 2.50,\n  \"current_stock\": 10,\n  \"min_stock_threshold\": 5\n}"
+            }
+          }
+        },
+        {
+          "name": "Update Product",
+          "request": {
+            "method": "PATCH",
+            "url": "{{base_url}}/api/v1/products/1",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"price\": 1.35,\n  \"min_stock_threshold\": 25\n}"
+            }
+          }
+        },
+        {
+          "name": "Delete Product",
+          "request": {
+            "method": "DELETE",
+            "url": "{{base_url}}/api/v1/products/99"
+          }
+        },
+        {
+          "name": "[Error] Create Product - Precio Negativo",
+          "request": {
+            "method": "POST",
+            "url": "{{base_url}}/api/v1/products",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Producto inválido\",\n  \"sku\": \"ERR-001\",\n  \"price\": -5.00,\n  \"current_stock\": 10,\n  \"min_stock_threshold\": 5\n}"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Transactions",
+      "item": [
+        {
+          "name": "List Transactions",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/api/v1/transactions"
+          }
+        },
+        {
+          "name": "Get Transaction by ID",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/api/v1/transactions/1"
+          }
+        },
+        {
+          "name": "Entrada de Stock (IN)",
+          "request": {
+            "method": "POST",
+            "url": "{{base_url}}/api/v1/transactions",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"product_id\": 1,\n  \"quantity\": 50,\n  \"type\": \"IN\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Salida de Stock (OUT)",
+          "request": {
+            "method": "POST",
+            "url": "{{base_url}}/api/v1/transactions",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"product_id\": 1,\n  \"quantity\": 10,\n  \"type\": \"OUT\"\n}"
+            }
+          }
+        },
+        {
+          "name": "[Error] Salida con Stock Insuficiente",
+          "request": {
+            "method": "POST",
+            "url": "{{base_url}}/api/v1/transactions",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"product_id\": 1,\n  \"quantity\": 99999,\n  \"type\": \"OUT\"\n}"
+            }
+          }
+        },
+        {
+          "name": "[Error] Producto Inexistente",
+          "request": {
+            "method": "POST",
+            "url": "{{base_url}}/api/v1/transactions",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"product_id\": 9999,\n  \"quantity\": 5,\n  \"type\": \"IN\"\n}"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
