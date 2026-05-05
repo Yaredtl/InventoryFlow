@@ -1,7 +1,9 @@
 InventoryFlow
+
 Sistema moderno de gestión de inventarios full-stack diseñado para el seguimiento de stock y logística en tiempo real. Este proyecto se centra en una arquitectura desacoplada y profesional utilizando Python (FastAPI) y Angular.
 
 🛠 Stack Tecnológico
+
 Backend: Python 3.11 + FastAPI
 
 Frontend: Angular 16+ (TypeScript)
@@ -13,6 +15,7 @@ ORM: SQLAlchemy
 DevOps: Docker & Docker Compose
 
 🚀 Características Clave
+
 Gestión en Tiempo Real: CRUD completo para productos y categorías.
 
 Alertas de Stock: Indicadores visuales para productos con bajo inventario basados en umbrales personalizados.
@@ -24,6 +27,7 @@ API RESTful: Endpoints totalmente documentados con Swagger/OpenAPI.
 Entorno Dockerizado: Infraestructura de datos aislada para facilitar el desarrollo y despliegue.
 
 📦 Configuración del Proyecto
+
 1. Base de Datos
 Asegúrate de tener Docker instalado. Desde la raíz del proyecto, ejecuta:
 
@@ -50,6 +54,7 @@ Inicia la aplicación: ng serve
 Accede a la interfaz en: http://localhost:4200
 
 📁 Estructura del Proyecto
+
 /backend: Lógica de FastAPI, modelos de SQLAlchemy y rutas de la API.
 
 /frontend: Componentes de Angular, servicios y formularios reactivos.
@@ -59,9 +64,11 @@ docker-compose.yml: Orquestación de la infraestructura para desarrollo.
 -----------------------------------------------------------------------------
 
 InventoryFlow
+
 A modern, full-stack inventory management system designed for real-time stock tracking and logistics. This project focuses on a clean, decoupled architecture using Python (FastAPI) and Angular.
 
 🛠 Tech Stack
+
 Backend: Python 3.11 + FastAPI
 
 Frontend: Angular 16+
@@ -73,6 +80,7 @@ ORM: SQLAlchemy
 DevOps: Docker & Docker Compose
 
 🚀 Key Features
+
 Real-time Inventory Management: Complete CRUD for products and categories.
 
 Stock Alerts: Visual indicators for low-stock items based on custom thresholds.
@@ -84,6 +92,7 @@ RESTful API: Fully documented endpoints using Swagger/OpenAPI.
 Dockerized Environment: Isolated database and management tools for easy setup.
 
 📦 Getting Started
+
 1. Database Setup
 Ensure you have Docker installed. From the root directory, run:
 
@@ -110,6 +119,7 @@ Start the application: ng serve
 Access the UI at: http://localhost:4200
 
 📁 Project Structure
+
 /backend: FastAPI logic, SQLAlchemy models, and API routes.
 
 /frontend: Angular components, services, and reactive forms.
