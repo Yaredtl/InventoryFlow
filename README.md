@@ -54,6 +54,7 @@ Inicia la aplicación: ng serve
 Accede a la interfaz en: http://localhost:4200
 
 📁 Estructura del Proyecto
+
 /backend: Lógica de FastAPI, modelos de SQLAlchemy y rutas de la API.
 
 /frontend: Componentes de Angular, servicios y formularios reactivos.
@@ -118,6 +119,7 @@ Start the application: ng serve
 Access the UI at: http://localhost:4200
 
 📁 Project Structure
+
 /backend: FastAPI logic, SQLAlchemy models, and API routes.
 
 /frontend: Angular components, services, and reactive forms.
