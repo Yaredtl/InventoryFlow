@@ -1,0 +1,29 @@
+<div class="if-form-card">
+  <div class="if-form-header">
+    <h3 class="if-form-title">{{ isEdit ? 'Editar Categoria' : 'Nueva Categoria' }}</h3>
+    <button class="if-form-close" (click)="cancelled.emit()">x</button>
+  </div>
+
+  <form [formGroup]="form" (ngSubmit)="submit()" class="if-form-grid">
+
+    <div class="if-form-field if-form-field--full">
+      <label class="if-form-label">Nombre <span class="if-form-required">*</span></label>
+      <input class="if-input" [class.if-input--error]="fieldError('name')" formControlName="name" />
+      @if (fieldError('name')) { <p class="if-input-error">{{ fieldError('name') }}</p> }
+    </div>
+
+    <div class="if-form-field if-form-field--full">
+      <label class="if-form-label">Descripcion</label>
+      <textarea class="if-input if-textarea" [class.if-input--error]="fieldError('description')" formControlName="description" rows="3"></textarea>
+      @if (fieldError('description')) { <p class="if-input-error">{{ fieldError('description') }}</p> }
+    </div>
+
+    <div class="if-form-actions if-form-actions--full">
+      <button class="if-btn-primary" type="submit" [disabled]="loading">
+        {{ loading ? 'Guardando...' : (isEdit ? 'Actualizar' : 'Guardar') }}
+      </button>
+      <button class="if-btn-secondary" type="button" (click)="cancelled.emit()">Cancelar</button>
+    </div>
+
+  </form>
+</div>

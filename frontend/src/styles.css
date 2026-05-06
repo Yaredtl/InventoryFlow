@@ -1,3 +1,162 @@
-/* You can add global styles to this file, and also import other style files */
-
 @import 'tailwindcss';
+
+@theme {
+  --color-if-canvas:  #020617;
+  --color-if-sidebar: #0F172A;
+  --color-if-active:  #1E293B;
+  --color-if-bg:      #F8FAFC;
+  --color-if-surface: #FFFFFF;
+  --color-if-border:  #E2E8F0;
+  --color-if-row:     #F1F5F9;
+  --color-if-primary: #0D9488;
+  --color-if-text:    #1E293B;
+  --color-if-muted:   #64748B;
+  --color-if-nav:     #94A3B8;
+  --color-if-label:   #475569;
+  --color-if-inverse: #F1F5F9;
+  --color-if-danger:  #EF4444;
+}
+
+/* ─── App shell ─────────────────────────────────────── */
+.if-page { @apply font-sans antialiased flex flex-col; min-height: 100vh; background: var(--color-if-sidebar); }
+.if-body { @apply flex flex-1 overflow-hidden; }
+.if-main { @apply flex-1 overflow-y-auto; background: var(--color-if-bg); padding: 1.25rem; }
+
+/* ─── Page content (wrapper inside each feature page) ── */
+.if-page-content { @apply space-y-4; }
+
+/* ─── Navbar ────────────────────────────────────────── */
+.if-navbar         { @apply flex items-center justify-between px-5 py-3 shrink-0; background: var(--color-if-sidebar); }
+.if-navbar-brand   { @apply flex items-center gap-2; }
+.if-navbar-logo    { @apply flex items-center justify-center text-xs font-bold shrink-0 text-white; width: 28px; height: 28px; border-radius: 6px; background: var(--color-if-primary); }
+.if-navbar-name    { @apply font-bold text-sm; color: var(--color-if-inverse); }
+.if-navbar-actions { @apply flex items-center gap-4; }
+.if-navbar-avatar  { @apply flex items-center justify-center text-xs font-bold text-white rounded-full; width: 28px; height: 28px; background: var(--color-if-primary); }
+
+/* ─── Sidebar ───────────────────────────────────────── */
+.if-sidebar             { @apply p-3 flex flex-col gap-0.5 shrink-0 overflow-y-auto; width: 185px; background: var(--color-if-sidebar); }
+.if-sidebar-menu-label  { @apply px-3 pt-2 pb-1.5; color: var(--color-if-label); font-size: 10px; letter-spacing: 0.1em; }
+.if-sidebar-link        { @apply flex items-center gap-2 px-3 py-2 text-xs cursor-pointer; border-radius: 6px; color: var(--color-if-nav); }
+.if-sidebar-link--active{ @apply font-medium; background: var(--color-if-active); color: var(--color-if-inverse); }
+.if-sidebar-footer      { @apply mt-auto pt-3; border-top: 1px solid var(--color-if-active); }
+
+/* ─── Global spinner overlay ────────────────────────── */
+.if-spinner-overlay { @apply fixed inset-0 z-50 flex items-center justify-center; background: rgba(2, 6, 23, 0.65); }
+.if-spinner         { @apply rounded-full border-2 animate-spin shrink-0; width: 20px; height: 20px; border-color: var(--color-if-border); border-top-color: var(--color-if-primary); }
+
+/* ─── Toast container ───────────────────────────────── */
+.if-toast-container { @apply fixed top-4 right-4 z-50 flex flex-col gap-2; min-width: 280px; max-width: 360px; }
+.if-toast           { @apply flex items-start gap-2 p-3 rounded-[6px] shadow-sm; }
+.if-toast-body      { @apply flex-1; }
+.if-toast-message   { @apply text-xs font-medium; }
+.if-toast-desc      { @apply text-xs mt-0.5; }
+.if-toast-close     { @apply text-xs cursor-pointer shrink-0; }
+
+.if-toast--success                   { @apply border; background: #ECFDF5; border-color: #6EE7B7; }
+.if-toast--success .if-toast-message { color: #065F46; }
+.if-toast--success .if-toast-desc    { color: #047857; }
+.if-toast--success .if-toast-close   { color: #6EE7B7; }
+
+.if-toast--error                     { @apply border; background: #FEF2F2; border-color: #FCA5A5; }
+.if-toast--error .if-toast-message   { color: #991B1B; }
+.if-toast--error .if-toast-desc      { color: #B91C1C; }
+.if-toast--error .if-toast-close     { color: #FCA5A5; }
+
+.if-toast--warning                    { @apply border; background: #FFFBEB; border-color: #FCD34D; }
+.if-toast--warning .if-toast-message  { color: #92400E; }
+.if-toast--warning .if-toast-desc     { color: #78350F; }
+.if-toast--warning .if-toast-close    { color: #FCD34D; }
+
+/* ─── Modal overlay ─────────────────────────────────── */
+.if-modal-overlay { @apply fixed inset-0 z-40 flex items-center justify-center; background: rgba(2, 6, 23, 0.7); }
+.if-modal         { @apply overflow-hidden shadow-2xl; background: white; border-radius: 6px; min-width: 380px; max-width: 480px; width: 100%; }
+.if-modal-header  { @apply px-4 py-3; background: var(--color-if-bg); border-bottom: 1px solid var(--color-if-border); }
+.if-modal-title   { @apply font-semibold text-sm; color: var(--color-if-text); }
+.if-modal-body    { @apply p-4; }
+.if-modal-desc    { @apply text-xs mt-1; color: var(--color-if-muted); }
+.if-modal-actions { @apply flex gap-2 mt-3; }
+
+/* ─── Page header ───────────────────────────────────── */
+.if-page-header   { @apply flex items-center justify-between; }
+.if-page-title    { @apply text-lg font-semibold; color: var(--color-if-text); }
+.if-breadcrumb    { @apply text-xs mt-0.5; color: var(--color-if-muted); }
+
+/* ─── KPI grid ──────────────────────────────────────── */
+.if-kpis             { @apply grid grid-cols-4 gap-3; }
+.if-kpi              { @apply p-4 shadow-sm; background: white; border: 1px solid var(--color-if-border); border-radius: 6px; }
+.if-kpi-label        { @apply text-xs; color: var(--color-if-muted); }
+.if-kpi-value        { @apply text-2xl font-bold mt-1; color: var(--color-if-text); }
+.if-kpi-value--danger{ @apply text-2xl font-bold mt-1; color: var(--color-if-danger); }
+.if-kpi-hint         { @apply text-xs mt-1; color: var(--color-if-muted); }
+.if-kpi-hint--primary{ @apply text-xs mt-1; color: var(--color-if-primary); }
+.if-kpi-hint--danger { @apply text-xs mt-1; color: var(--color-if-danger); }
+
+/* ─── Buttons ───────────────────────────────────────── */
+.if-btn-primary        { @apply text-xs font-medium cursor-pointer; padding: 6px 16px; border-radius: 6px; background: var(--color-if-primary); color: white; }
+.if-btn-primary:disabled{ opacity: 0.6; cursor: not-allowed; }
+.if-btn-secondary      { @apply text-xs cursor-pointer; padding: 6px 16px; border-radius: 6px; background: white; color: var(--color-if-text); border: 1px solid var(--color-if-border); }
+.if-btn-danger         { @apply text-xs font-medium cursor-pointer; padding: 6px 16px; border-radius: 6px; background: var(--color-if-danger); color: white; }
+.if-btn-danger-outline { @apply text-xs cursor-pointer; padding: 6px 16px; border-radius: 6px; background: white; color: var(--color-if-danger); border: 1px solid #FEE2E2; }
+.if-btn-warning        { @apply text-xs font-medium cursor-pointer; padding: 6px 16px; border-radius: 6px; background: #F59E0B; color: white; }
+.if-btn-disabled       { @apply text-xs; padding: 6px 12px; border-radius: 6px; background: var(--color-if-border); color: var(--color-if-nav); cursor: not-allowed; }
+.if-btn-page-header    { @apply text-sm font-medium cursor-pointer; padding: 8px 16px; border-radius: 6px; background: var(--color-if-primary); color: white; }
+.if-btn-edit           { @apply text-xs cursor-pointer; padding: 4px 10px; border-radius: 6px; margin-right: 4px; background: var(--color-if-row); color: var(--color-if-text); }
+.if-btn-delete         { @apply text-xs cursor-pointer; padding: 4px 10px; border-radius: 6px; background: #FEF2F2; color: var(--color-if-danger); }
+
+/* ─── Badges ────────────────────────────────────────── */
+.if-badge-normal { @apply text-xs px-2 py-0.5 rounded-full; background: #D1FAE5; color: #065F46; }
+.if-badge-low    { @apply text-xs px-2 py-0.5 rounded-full; background: #FEF3C7; color: #92400E; }
+.if-badge-empty  { @apply text-xs px-2 py-0.5 rounded-full; background: #FEE2E2; color: #991B1B; }
+.if-badge-in     { @apply text-xs px-2 py-0.5 rounded-full; background: #DBEAFE; color: #1E40AF; }
+.if-badge-out    { @apply text-xs px-2 py-0.5 rounded-full; background: #FEE2E2; color: #991B1B; }
+
+/* ─── Stock value display ───────────────────────────── */
+.if-stock-ok    { @apply text-xs font-semibold; color: var(--color-if-text); }
+.if-stock-low   { @apply text-xs font-bold; color: #F59E0B; }
+.if-stock-empty { @apply text-xs font-bold; color: var(--color-if-danger); }
+
+/* ─── Table ─────────────────────────────────────────── */
+.if-table-card         { @apply overflow-hidden shadow-sm; background: white; border: 1px solid var(--color-if-border); border-radius: 6px; }
+.if-table-search       { @apply flex items-center gap-3 px-4 py-2.5; border-bottom: 1px solid var(--color-if-border); }
+.if-table-search-input { @apply flex-1 px-3 py-1.5 text-xs outline-none; border-radius: 6px; background: var(--color-if-bg); border: 1px solid var(--color-if-border); color: var(--color-if-text); }
+.if-table-count        { @apply text-xs shrink-0; color: var(--color-if-muted); }
+.if-table              { @apply w-full; }
+.if-table-head-row     { background: var(--color-if-bg); border-bottom: 1px solid var(--color-if-border); }
+.if-table-th           { @apply px-4 py-2.5 text-left text-xs font-medium; color: var(--color-if-muted); }
+.if-table-th--right    { @apply px-4 py-2.5 text-right text-xs font-medium; color: var(--color-if-muted); }
+.if-table-row          { border-bottom: 1px solid var(--color-if-row); }
+.if-table-td           { @apply px-4 py-2.5 text-xs; color: var(--color-if-text); }
+.if-table-td--name     { @apply px-4 py-2.5 text-xs font-medium; color: var(--color-if-text); }
+.if-table-td--mono     { @apply px-4 py-2.5 text-xs font-mono; color: var(--color-if-muted); }
+.if-table-td--right    { @apply px-4 py-2.5 text-right; }
+.if-table-empty        { @apply px-4 py-6 text-xs text-center; color: var(--color-if-muted); }
+.if-table-footer       { @apply flex items-center justify-between px-4 py-2; border-top: 1px solid var(--color-if-border); }
+.if-page-count         { @apply text-xs; color: var(--color-if-muted); }
+.if-pagination         { @apply flex gap-1; }
+.if-page-btn           { @apply text-xs cursor-pointer; width: 24px; height: 24px; border-radius: 4px; background: var(--color-if-row); color: var(--color-if-muted); }
+.if-page-btn--active   { @apply text-xs font-semibold cursor-pointer; width: 24px; height: 24px; border-radius: 4px; background: var(--color-if-primary); color: white; }
+
+/* ─── Form card ─────────────────────────────────────── */
+.if-form-card            { @apply shadow-sm; background: white; border: 1px solid var(--color-if-border); border-radius: 6px; padding: 1rem; }
+.if-form-header          { @apply flex items-center justify-between mb-3; }
+.if-form-title           { @apply font-semibold text-sm; color: var(--color-if-text); }
+.if-form-close           { @apply text-sm cursor-pointer; color: var(--color-if-muted); }
+.if-form-grid            { @apply grid grid-cols-2 gap-3; }
+.if-form-field           { @apply flex flex-col; }
+.if-form-field--full     { grid-column: 1 / -1; }
+.if-form-label           { @apply block text-xs font-medium mb-1; color: var(--color-if-text); }
+.if-form-required        { color: var(--color-if-danger); }
+.if-form-actions         { @apply flex flex-wrap items-center gap-2; }
+.if-form-actions--full   { grid-column: 1 / -1; }
+
+/* ─── Inputs ────────────────────────────────────────── */
+.if-input        { @apply w-full px-2.5 py-1.5 text-xs outline-none; border-radius: 6px; border: 1px solid var(--color-if-border); color: var(--color-if-text); background: white; }
+.if-input--error { @apply w-full px-2.5 py-1.5 text-xs outline-none; border-radius: 6px; border: 1px solid var(--color-if-danger); color: var(--color-if-text); background: white; }
+.if-input-error  { @apply text-xs mt-0.5; color: var(--color-if-danger); }
+.if-textarea     { @apply resize-none; }
+
+/* ─── Conflict banner (transaction form) ────────────── */
+.if-conflict-banner  { @apply p-3 rounded-[6px]; background: #FFFBEB; border: 1px solid #FCD34D; }
+.if-conflict-title   { @apply text-xs font-semibold; color: #92400E; }
+.if-conflict-desc    { @apply text-xs mt-0.5; color: #78350F; }
+.if-conflict-actions { @apply flex gap-2 mt-2; }

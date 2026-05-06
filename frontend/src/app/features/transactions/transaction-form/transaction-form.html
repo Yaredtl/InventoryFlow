@@ -1,0 +1,53 @@
+<div class="if-form-card">
+  <div class="if-form-header">
+    <h3 class="if-form-title">Nueva Transaccion</h3>
+    <button class="if-form-close" (click)="cancelled.emit()">x</button>
+  </div>
+
+  <form [formGroup]="form" (ngSubmit)="submit()" class="if-form-grid">
+
+    <div class="if-form-field">
+      <label class="if-form-label">Producto <span class="if-form-required">*</span></label>
+      <select class="if-input" [class.if-input--error]="fieldError('product_id')" formControlName="product_id">
+        <option [ngValue]="null">Selecciona un producto</option>
+        @for (p of products(); track p.id) {
+          <option [ngValue]="p.id">{{ p.name }} ({{ p.sku }})</option>
+        }
+      </select>
+      @if (fieldError('product_id')) { <p class="if-input-error">{{ fieldError('product_id') }}</p> }
+    </div>
+
+    <div class="if-form-field">
+      <label class="if-form-label">Tipo <span class="if-form-required">*</span></label>
+      <select class="if-input" formControlName="type">
+        <option value="IN">Entrada</option>
+        <option value="OUT">Salida</option>
+      </select>
+    </div>
+
+    <div class="if-form-field">
+      <label class="if-form-label">Cantidad <span class="if-form-required">*</span></label>
+      <input class="if-input" [class.if-input--error]="fieldError('quantity')" formControlName="quantity" type="number" min="1" />
+      @if (fieldError('quantity')) { <p class="if-input-error">{{ fieldError('quantity') }}</p> }
+    </div>
+
+    @if (conflict()) {
+      <div class="if-conflict-banner if-form-field--full">
+        <p class="if-conflict-title">Stock insuficiente</p>
+        <p class="if-conflict-desc">Solo hay {{ conflict()!.available_stock }} unidades disponibles. Despachar de todas formas?</p>
+        <div class="if-conflict-actions">
+          <button class="if-btn-warning" type="button" (click)="confirmForce()">Despachar {{ conflict()!.available_stock }}</button>
+          <button class="if-btn-secondary" type="button" (click)="conflict.set(null)">Cancelar</button>
+        </div>
+      </div>
+    }
+
+    <div class="if-form-actions if-form-actions--full">
+      <button class="if-btn-primary" type="submit" [disabled]="loading">
+        {{ loading ? 'Registrando...' : 'Registrar' }}
+      </button>
+      <button class="if-btn-secondary" type="button" (click)="cancelled.emit()">Cancelar</button>
+    </div>
+
+  </form>
+</div>

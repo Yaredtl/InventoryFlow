@@ -1,0 +1,38 @@
+<div class="if-page-content">
+
+  <div class="if-page-header">
+    <div>
+      <h1 class="if-page-title">Dashboard</h1>
+      <p class="if-breadcrumb">Inicio &rsaquo; Dashboard</p>
+    </div>
+  </div>
+
+  <div class="if-kpis">
+    <div class="if-kpi">
+      <p class="if-kpi-label">TOTAL PRODUCTOS</p>
+      <p class="if-kpi-value">{{ totalProducts() }}</p>
+      <p class="if-kpi-hint">Registrados en el sistema</p>
+    </div>
+    <div class="if-kpi">
+      <p class="if-kpi-label">CATEGORIAS</p>
+      <p class="if-kpi-value">{{ totalCategories() }}</p>
+      <p class="if-kpi-hint">Grupos de productos</p>
+    </div>
+    <div class="if-kpi">
+      <p class="if-kpi-label">MOVIMIENTOS HOY</p>
+      <p class="if-kpi-value">{{ todayTx() }}</p>
+      <p class="if-kpi-hint">Entradas y salidas</p>
+    </div>
+    <div class="if-kpi">
+      <p class="if-kpi-label">ALERTAS STOCK</p>
+      @if (lowStockCount() > 0) {
+        <p class="if-kpi-value--danger">{{ lowStockCount() }}</p>
+        <p class="if-kpi-hint--danger">Requiere atencion</p>
+      } @else {
+        <p class="if-kpi-value">{{ lowStockCount() }}</p>
+        <p class="if-kpi-hint">Todo en orden</p>
+      }
+    </div>
+  </div>
+
+</div>

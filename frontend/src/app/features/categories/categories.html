@@ -1,0 +1,54 @@
+<div class="if-page-content">
+
+  <div class="if-page-header">
+    <div>
+      <h1 class="if-page-title">Categorias</h1>
+      <p class="if-breadcrumb">Inicio &rsaquo; Categorias</p>
+    </div>
+    <button class="if-btn-page-header" (click)="openCreate()">+ Anadir Categoria</button>
+  </div>
+
+  @if (showForm()) {
+    <app-category-form
+      [category]="editTarget()"
+      (saved)="onSaved()"
+      (cancelled)="showForm.set(false)" />
+  }
+
+  <div class="if-table-card">
+    <table class="if-table">
+      <thead>
+        <tr class="if-table-head-row">
+          <th class="if-table-th">NOMBRE</th>
+          <th class="if-table-th">DESCRIPCION</th>
+          <th class="if-table-th--right">ACCIONES</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (c of categories(); track c.id) {
+          <tr class="if-table-row">
+            <td class="if-table-td--name">{{ c.name }}</td>
+            <td class="if-table-td">{{ c.description ?? '—' }}</td>
+            <td class="if-table-td--right">
+              <button class="if-btn-edit" (click)="openEdit(c)">Editar</button>
+              <button class="if-btn-delete" (click)="confirmDelete(c)">Eliminar</button>
+            </td>
+          </tr>
+        } @empty {
+          <tr>
+            <td class="if-table-empty" colspan="3">No hay categorias registradas.</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+
+  <app-confirm-modal
+    [visible]="!!deleteTarget()"
+    [title]="'Eliminar categoria'"
+    [description]="'Se eliminara ' + (deleteTarget()?.name ?? '') + '. Los productos quedaran sin categoria.'"
+    [confirmLabel]="'Si, eliminar'"
+    (confirmed)="onDelete()"
+    (cancelled)="deleteTarget.set(null)" />
+
+</div>

@@ -1,0 +1,13 @@
+<div class="if-toast-container">
+  @for (toast of svc.toasts(); track toast.id) {
+    <div class="if-toast if-toast--{{ toast.type }}">
+      <div class="if-toast-body">
+        <p class="if-toast-message">{{ toast.message }}</p>
+        @if (toast.description) {
+          <p class="if-toast-desc">{{ toast.description }}</p>
+        }
+      </div>
+      <span class="if-toast-close" (click)="svc.remove(toast.id)">x</span>
+    </div>
+  }
+</div>

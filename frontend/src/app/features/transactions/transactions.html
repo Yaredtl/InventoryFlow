@@ -1,0 +1,53 @@
+<div class="if-page-content">
+
+  <div class="if-page-header">
+    <div>
+      <h1 class="if-page-title">Transacciones</h1>
+      <p class="if-breadcrumb">Inicio &rsaquo; Transacciones</p>
+    </div>
+    <button class="if-btn-page-header" (click)="showForm.set(true)">+ Nueva Transaccion</button>
+  </div>
+
+  @if (showForm()) {
+    <app-transaction-form
+      [products]="products()"
+      (saved)="onSaved()"
+      (cancelled)="showForm.set(false)" />
+  }
+
+  <div class="if-table-card">
+    <table class="if-table">
+      <thead>
+        <tr class="if-table-head-row">
+          <th class="if-table-th">ID</th>
+          <th class="if-table-th">PRODUCTO</th>
+          <th class="if-table-th">TIPO</th>
+          <th class="if-table-th">CANTIDAD</th>
+          <th class="if-table-th">FECHA</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (t of transactions(); track t.id) {
+          <tr class="if-table-row">
+            <td class="if-table-td--mono">{{ t.id }}</td>
+            <td class="if-table-td--name">{{ productName(t.product_id) }}</td>
+            <td class="if-table-td">
+              @if (t.type === 'IN') {
+                <span class="if-badge-in">Entrada</span>
+              } @else {
+                <span class="if-badge-out">Salida</span>
+              }
+            </td>
+            <td class="if-table-td">{{ t.quantity }}</td>
+            <td class="if-table-td">{{ t.created_at | date:'dd/MM/yyyy HH:mm' }}</td>
+          </tr>
+        } @empty {
+          <tr>
+            <td class="if-table-empty" colspan="5">No hay transacciones registradas.</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+
+</div>

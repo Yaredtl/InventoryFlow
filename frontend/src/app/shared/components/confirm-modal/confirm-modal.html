@@ -1,0 +1,16 @@
+@if (visible()) {
+  <div class="if-modal-overlay" (click)="cancelled.emit()">
+    <div class="if-modal" (click)="$event.stopPropagation()">
+      <div class="if-modal-header">
+        <p class="if-modal-title">{{ title() }}</p>
+      </div>
+      <div class="if-modal-body">
+        <p class="if-modal-desc">{{ description() }}</p>
+        <div class="if-modal-actions">
+          <button class="if-btn-danger" (click)="confirmed.emit()">{{ confirmLabel() }}</button>
+          <button class="if-btn-secondary" (click)="cancelled.emit()">Cancelar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+}

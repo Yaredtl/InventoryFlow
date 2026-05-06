@@ -1,0 +1,81 @@
+<div class="if-page-content">
+
+  <div class="if-page-header">
+    <div>
+      <h1 class="if-page-title">Productos</h1>
+      <p class="if-breadcrumb">Inicio &rsaquo; Productos</p>
+    </div>
+    <button class="if-btn-page-header" (click)="openCreate()">+ Anadir Producto</button>
+  </div>
+
+  @if (showForm()) {
+    <app-product-form
+      [product]="editTarget()"
+      [categories]="categories()"
+      (saved)="onSaved()"
+      (cancelled)="showForm.set(false)" />
+  }
+
+  <div class="if-table-card">
+    <div class="if-table-search">
+      <input
+        class="if-table-search-input"
+        placeholder="Buscar producto o SKU..."
+        [value]="search()"
+        (input)="search.set($any($event.target).value)" />
+      <span class="if-table-count">{{ filtered().length }} resultados</span>
+    </div>
+    <table class="if-table">
+      <thead>
+        <tr class="if-table-head-row">
+          <th class="if-table-th">PRODUCTO</th>
+          <th class="if-table-th">SKU</th>
+          <th class="if-table-th">STOCK</th>
+          <th class="if-table-th">PRECIO</th>
+          <th class="if-table-th">ESTADO</th>
+          <th class="if-table-th--right">ACCIONES</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (p of filtered(); track p.id) {
+          <tr class="if-table-row">
+            <td class="if-table-td--name">{{ p.name }}</td>
+            <td class="if-table-td--mono">{{ p.sku }}</td>
+            <td class="if-table-td">
+              @switch (stockStatus(p)) {
+                @case ('normal') { <span class="if-stock-ok">{{ p.current_stock }}</span> }
+                @case ('low')    { <span class="if-stock-low">{{ p.current_stock }}</span> }
+                @case ('empty')  { <span class="if-stock-empty">{{ p.current_stock }}</span> }
+              }
+            </td>
+            <td class="if-table-td">{{ p.price }} EUR</td>
+            <td class="if-table-td">
+              @switch (stockStatus(p)) {
+                @case ('normal') { <span class="if-badge-normal">Normal</span> }
+                @case ('low')    { <span class="if-badge-low">Stock Bajo</span> }
+                @case ('empty')  { <span class="if-badge-empty">Agotado</span> }
+              }
+            </td>
+            <td class="if-table-td--right">
+              <button class="if-btn-edit" (click)="openEdit(p)">Editar</button>
+              <button class="if-btn-delete" (click)="confirmDelete(p)">Eliminar</button>
+            </td>
+          </tr>
+        } @empty {
+          <tr>
+            <td class="if-table-empty" colspan="6">No hay productos registrados.</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+
+  <app-confirm-modal
+    [visible]="!!deleteTarget()"
+    [title]="'Eliminar producto'"
+    [description]="'Se eliminara ' + (deleteTarget()?.name ?? '') + ' y sus transacciones. Esta accion no se puede deshacer.'"
+    [confirmLabel]="'Si, eliminar'"
+    (confirmed)="onDelete()"
+    (cancelled)="deleteTarget.set(null)" />
+
+</div>

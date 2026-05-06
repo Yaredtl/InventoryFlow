@@ -1,0 +1,57 @@
+<div class="if-form-card">
+  <div class="if-form-header">
+    <h3 class="if-form-title">{{ isEdit ? 'Editar Producto' : 'Nuevo Producto' }}</h3>
+    <button class="if-form-close" (click)="cancelled.emit()">x</button>
+  </div>
+
+  <form [formGroup]="form" (ngSubmit)="submit()" class="if-form-grid">
+
+    <div class="if-form-field">
+      <label class="if-form-label">Nombre <span class="if-form-required">*</span></label>
+      <input class="if-input" [class.if-input--error]="fieldError('name')" formControlName="name" />
+      @if (fieldError('name')) { <p class="if-input-error">{{ fieldError('name') }}</p> }
+    </div>
+
+    <div class="if-form-field">
+      <label class="if-form-label">SKU <span class="if-form-required">*</span></label>
+      <input class="if-input" [class.if-input--error]="fieldError('sku')" formControlName="sku" placeholder="Ej: BEB-001" />
+      @if (fieldError('sku')) { <p class="if-input-error">{{ fieldError('sku') }}</p> }
+    </div>
+
+    <div class="if-form-field">
+      <label class="if-form-label">Categoria</label>
+      <select class="if-input" formControlName="category_id">
+        <option [ngValue]="null">Sin categoria</option>
+        @for (cat of categories(); track cat.id) {
+          <option [ngValue]="cat.id">{{ cat.name }}</option>
+        }
+      </select>
+    </div>
+
+    <div class="if-form-field">
+      <label class="if-form-label">Precio (EUR) <span class="if-form-required">*</span></label>
+      <input class="if-input" [class.if-input--error]="fieldError('price')" formControlName="price" type="number" step="0.01" />
+      @if (fieldError('price')) { <p class="if-input-error">{{ fieldError('price') }}</p> }
+    </div>
+
+    <div class="if-form-field">
+      <label class="if-form-label">Stock actual</label>
+      <input class="if-input" [class.if-input--error]="fieldError('current_stock')" formControlName="current_stock" type="number" />
+      @if (fieldError('current_stock')) { <p class="if-input-error">{{ fieldError('current_stock') }}</p> }
+    </div>
+
+    <div class="if-form-field">
+      <label class="if-form-label">Umbral minimo</label>
+      <input class="if-input" [class.if-input--error]="fieldError('min_stock_threshold')" formControlName="min_stock_threshold" type="number" />
+      @if (fieldError('min_stock_threshold')) { <p class="if-input-error">{{ fieldError('min_stock_threshold') }}</p> }
+    </div>
+
+    <div class="if-form-actions if-form-actions--full">
+      <button class="if-btn-primary" type="submit" [disabled]="loading">
+        {{ loading ? 'Guardando...' : (isEdit ? 'Actualizar' : 'Guardar') }}
+      </button>
+      <button class="if-btn-secondary" type="button" (click)="cancelled.emit()">Cancelar</button>
+    </div>
+
+  </form>
+</div>
