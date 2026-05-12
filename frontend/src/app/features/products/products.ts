@@ -1,4 +1,5 @@
 import { Component, inject, signal, OnInit } from '@angular/core';
+import { forkJoin } from 'rxjs';
 import { ProductsService, Product } from './products.service';
 import { CategoriesService, Category } from '../categories/categories.service';
 import { ToastService } from '../../core/services/toast.service';
@@ -18,6 +19,7 @@ export class Products implements OnInit {
   products     = signal<Product[]>([]);
   categories   = signal<Category[]>([]);
   showForm     = signal(false);
+  loading      = signal(false);
   editTarget   = signal<Product | null>(null);
   deleteTarget = signal<Product | null>(null);
   search       = signal('');
@@ -25,8 +27,15 @@ export class Products implements OnInit {
   ngOnInit(): void { this.load(); }
 
   load(): void {
-    this.svc.getAll().subscribe(p => this.products.set(p));
-    this.catSvc.getAll().subscribe(c => this.categories.set(c));
+    this.loading.set(true);
+    forkJoin({ products: this.svc.getAll(), categories: this.catSvc.getAll() }).subscribe({
+      next: ({ products, categories }) => {
+        this.products.set(products);
+        this.categories.set(categories);
+        this.loading.set(false);
+      },
+      error: () => this.loading.set(false)
+    });
   }
 
   filtered(): Product[] {
@@ -66,7 +75,7 @@ export class Products implements OnInit {
     if (!p) return;
     this.svc.remove(p.id).subscribe({
       next: () => {
-        this.toast.success('Eliminado', `${p.name} eliminado correctamente.`);
+        this.toast.danger('Eliminado', `${p.name} eliminado correctamente.`);
         this.deleteTarget.set(null);
         this.load();
       },

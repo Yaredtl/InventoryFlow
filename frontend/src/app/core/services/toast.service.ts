@@ -1,6 +1,6 @@
 import { Injectable, signal } from '@angular/core';
 
-export type ToastType = 'success' | 'error' | 'warning';
+export type ToastType = 'success' | 'error' | 'warning' | 'danger';
 
 export interface Toast {
   id: number;
@@ -23,6 +23,7 @@ export class ToastService {
   success(message: string, description?: string): void { this.show('success', message, description); }
   error(message: string, description?: string): void   { this.show('error',   message, description); }
   warning(message: string, description?: string): void { this.show('warning', message, description); }
+  danger(message: string, description?: string): void  { this.show('danger',  message, description); }
 
   remove(id: number): void {
     this.toasts.update(list => list.filter(t => t.id !== id));

@@ -43,10 +43,12 @@
 /* ─── Global spinner overlay ────────────────────────── */
 .if-spinner-overlay { @apply fixed inset-0 z-50 flex items-center justify-center; background: rgba(2, 6, 23, 0.65); }
 .if-spinner         { @apply rounded-full border-2 animate-spin shrink-0; width: 20px; height: 20px; border-color: var(--color-if-border); border-top-color: var(--color-if-primary); }
+.if-table-loading                { @apply py-8; text-align: center; }
+.if-table-loading .if-spinner   { display: inline-block; }
 
 /* ─── Toast container ───────────────────────────────── */
-.if-toast-container { @apply fixed top-4 right-4 z-50 flex flex-col gap-2; min-width: 280px; max-width: 360px; }
-.if-toast           { @apply flex items-start gap-2 p-3 rounded-[6px] shadow-sm; }
+.if-toast-container { @apply fixed z-50 flex flex-col gap-2; bottom: 1.5rem; left: 50%; transform: translateX(-50%); min-width: 300px; max-width: 400px; align-items: center; }
+.if-toast           { @apply flex items-start gap-2 p-3 rounded-[6px] shadow-md w-full; }
 .if-toast-body      { @apply flex-1; }
 .if-toast-message   { @apply text-xs font-medium; }
 .if-toast-desc      { @apply text-xs mt-0.5; }
@@ -66,6 +68,11 @@
 .if-toast--warning .if-toast-message  { color: #92400E; }
 .if-toast--warning .if-toast-desc     { color: #78350F; }
 .if-toast--warning .if-toast-close    { color: #FCD34D; }
+
+.if-toast--danger                    { @apply border; background: #FFF7ED; border-color: #FB923C; }
+.if-toast--danger .if-toast-message  { color: #9A3412; }
+.if-toast--danger .if-toast-desc     { color: #C2410C; }
+.if-toast--danger .if-toast-close    { color: #FB923C; }
 
 /* ─── Modal overlay ─────────────────────────────────── */
 .if-modal-overlay { @apply fixed inset-0 z-40 flex items-center justify-center; background: rgba(2, 6, 23, 0.7); }
@@ -92,16 +99,24 @@
 .if-kpi-hint--danger { @apply text-xs mt-1; color: var(--color-if-danger); }
 
 /* ─── Buttons ───────────────────────────────────────── */
-.if-btn-primary        { @apply text-xs font-medium cursor-pointer; padding: 6px 16px; border-radius: 6px; background: var(--color-if-primary); color: white; }
-.if-btn-primary:disabled{ opacity: 0.6; cursor: not-allowed; }
-.if-btn-secondary      { @apply text-xs cursor-pointer; padding: 6px 16px; border-radius: 6px; background: white; color: var(--color-if-text); border: 1px solid var(--color-if-border); }
-.if-btn-danger         { @apply text-xs font-medium cursor-pointer; padding: 6px 16px; border-radius: 6px; background: var(--color-if-danger); color: white; }
-.if-btn-danger-outline { @apply text-xs cursor-pointer; padding: 6px 16px; border-radius: 6px; background: white; color: var(--color-if-danger); border: 1px solid #FEE2E2; }
-.if-btn-warning        { @apply text-xs font-medium cursor-pointer; padding: 6px 16px; border-radius: 6px; background: #F59E0B; color: white; }
-.if-btn-disabled       { @apply text-xs; padding: 6px 12px; border-radius: 6px; background: var(--color-if-border); color: var(--color-if-nav); cursor: not-allowed; }
-.if-btn-page-header    { @apply text-sm font-medium cursor-pointer; padding: 8px 16px; border-radius: 6px; background: var(--color-if-primary); color: white; }
-.if-btn-edit           { @apply text-xs cursor-pointer; padding: 4px 10px; border-radius: 6px; margin-right: 4px; background: var(--color-if-row); color: var(--color-if-text); }
-.if-btn-delete         { @apply text-xs cursor-pointer; padding: 4px 10px; border-radius: 6px; background: #FEF2F2; color: var(--color-if-danger); }
+.if-btn-primary          { @apply text-xs font-medium cursor-pointer transition-colors; padding: 6px 16px; border-radius: 6px; background: var(--color-if-primary); color: white; }
+.if-btn-primary:hover    { background: #0F766E; }
+.if-btn-primary:disabled { opacity: 0.6; cursor: not-allowed; }
+.if-btn-secondary        { @apply text-xs cursor-pointer transition-colors; padding: 6px 16px; border-radius: 6px; background: white; color: var(--color-if-text); border: 1px solid var(--color-if-border); }
+.if-btn-secondary:hover  { background: var(--color-if-bg); }
+.if-btn-danger           { @apply text-xs font-medium cursor-pointer transition-colors; padding: 6px 16px; border-radius: 6px; background: var(--color-if-danger); color: white; }
+.if-btn-danger:hover     { background: #DC2626; }
+.if-btn-danger-outline   { @apply text-xs cursor-pointer transition-colors; padding: 6px 16px; border-radius: 6px; background: white; color: var(--color-if-danger); border: 1px solid #FEE2E2; }
+.if-btn-danger-outline:hover { background: #FEF2F2; }
+.if-btn-warning          { @apply text-xs font-medium cursor-pointer transition-colors; padding: 6px 16px; border-radius: 6px; background: #F59E0B; color: white; }
+.if-btn-warning:hover    { background: #D97706; }
+.if-btn-disabled         { @apply text-xs; padding: 6px 12px; border-radius: 6px; background: var(--color-if-border); color: var(--color-if-nav); cursor: not-allowed; }
+.if-btn-page-header      { @apply text-sm font-medium cursor-pointer transition-colors; padding: 8px 16px; border-radius: 6px; background: var(--color-if-primary); color: white; }
+.if-btn-page-header:hover{ background: #0F766E; }
+.if-btn-edit             { @apply text-xs cursor-pointer transition-colors; padding: 4px 10px; border-radius: 6px; margin-right: 4px; background: var(--color-if-row); color: var(--color-if-text); }
+.if-btn-edit:hover       { background: #E2E8F0; }
+.if-btn-delete           { @apply text-xs cursor-pointer transition-colors; padding: 4px 10px; border-radius: 6px; background: #FEF2F2; color: var(--color-if-danger); }
+.if-btn-delete:hover     { background: #FEE2E2; }
 
 /* ─── Badges ────────────────────────────────────────── */
 .if-badge-normal { @apply text-xs px-2 py-0.5 rounded-full; background: #D1FAE5; color: #065F46; }
@@ -140,7 +155,8 @@
 .if-form-card            { @apply shadow-sm; background: white; border: 1px solid var(--color-if-border); border-radius: 6px; padding: 1rem; }
 .if-form-header          { @apply flex items-center justify-between mb-3; }
 .if-form-title           { @apply font-semibold text-sm; color: var(--color-if-text); }
-.if-form-close           { @apply text-sm cursor-pointer; color: var(--color-if-muted); }
+.if-form-close           { @apply text-base font-bold cursor-pointer leading-none transition-colors; color: var(--color-if-text); }
+.if-form-close:hover     { color: var(--color-if-danger); }
 .if-form-grid            { @apply grid grid-cols-2 gap-3; }
 .if-form-field           { @apply flex flex-col; }
 .if-form-field--full     { grid-column: 1 / -1; }
@@ -160,3 +176,24 @@
 .if-conflict-title   { @apply text-xs font-semibold; color: #92400E; }
 .if-conflict-desc    { @apply text-xs mt-0.5; color: #78350F; }
 .if-conflict-actions { @apply flex gap-2 mt-2; }
+
+/* ─── Hamburger button ──────────────────────────────── */
+.if-hamburger       { @apply flex-col gap-1 cursor-pointer shrink-0; display: none; padding: 4px; background: transparent; border: none; }
+.if-hamburger span  { display: block; width: 18px; height: 2px; background: var(--color-if-nav); border-radius: 2px; transition: background 0.2s; }
+.if-hamburger:hover span { background: var(--color-if-inverse); }
+
+/* ─── Responsive mobile (<768px) ───────────────────── */
+@media (max-width: 768px) {
+  .if-hamburger     { display: flex; }
+
+  .if-sidebar-backdrop { position: fixed; inset: 0; z-index: 30; background: rgba(2, 6, 23, 0.55); }
+  .if-sidebar          { position: fixed; top: 0; left: 0; height: 100vh; z-index: 40;
+                         transform: translateX(-100%); transition: transform 0.25s ease; }
+  .if-sidebar--open    { transform: translateX(0); }
+
+  .if-kpis        { grid-template-columns: repeat(2, 1fr); }
+  .if-form-grid   { grid-template-columns: 1fr !important; }
+  .if-table-card  { overflow-x: auto; }
+  .if-main        { padding: 0.75rem; }
+  .if-page-header { flex-wrap: wrap; gap: 0.5rem; }
+}

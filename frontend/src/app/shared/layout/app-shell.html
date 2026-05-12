@@ -1,7 +1,7 @@
 <div class="if-page">
-  <app-navbar />
+  <app-navbar (menuToggle)="menuOpen.set(!menuOpen())" />
   <div class="if-body">
-    <app-sidebar />
+    <app-sidebar [open]="menuOpen()" (closeMenu)="menuOpen.set(false)" />
     <main class="if-main">
       <router-outlet />
     </main>

@@ -5,7 +5,9 @@
       <h1 class="if-page-title">Productos</h1>
       <p class="if-breadcrumb">Inicio &rsaquo; Productos</p>
     </div>
-    <button class="if-btn-page-header" (click)="openCreate()">+ Anadir Producto</button>
+    @if (!showForm()) {
+      <button class="if-btn-page-header" (click)="openCreate()">+ Anadir Producto</button>
+    }
   </div>
 
   @if (showForm()) {
@@ -37,7 +39,10 @@
         </tr>
       </thead>
       <tbody>
-        @for (p of filtered(); track p.id) {
+        @if (loading()) {
+          <tr><td class="if-table-loading" colspan="6"><div class="if-spinner"></div></td></tr>
+        } @else {
+          @for (p of filtered(); track p.id) {
           <tr class="if-table-row">
             <td class="if-table-td--name">{{ p.name }}</td>
             <td class="if-table-td--mono">{{ p.sku }}</td>
@@ -61,10 +66,11 @@
               <button class="if-btn-delete" (click)="confirmDelete(p)">Eliminar</button>
             </td>
           </tr>
-        } @empty {
-          <tr>
-            <td class="if-table-empty" colspan="6">No hay productos registrados.</td>
-          </tr>
+          } @empty {
+            <tr>
+              <td class="if-table-empty" colspan="6">No hay productos registrados.</td>
+            </tr>
+          }
         }
       </tbody>
     </table>

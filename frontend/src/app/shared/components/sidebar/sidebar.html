@@ -1,9 +1,12 @@
-<aside class="if-sidebar">
+@if (open()) {
+  <div class="if-sidebar-backdrop" (click)="closeMenu.emit()"></div>
+}
+<aside class="if-sidebar" [class.if-sidebar--open]="open()">
   <p class="if-sidebar-menu-label">MENU</p>
-  <a class="if-sidebar-link" routerLink="/dashboard"     routerLinkActive="if-sidebar-link--active">Dashboard</a>
-  <a class="if-sidebar-link" routerLink="/products"      routerLinkActive="if-sidebar-link--active">Productos</a>
-  <a class="if-sidebar-link" routerLink="/categories"    routerLinkActive="if-sidebar-link--active">Categorias</a>
-  <a class="if-sidebar-link" routerLink="/transactions"  routerLinkActive="if-sidebar-link--active">Transacciones</a>
+  <a class="if-sidebar-link" routerLink="/dashboard"     routerLinkActive="if-sidebar-link--active" (click)="closeMenu.emit()">Dashboard</a>
+  <a class="if-sidebar-link" routerLink="/products"      routerLinkActive="if-sidebar-link--active" (click)="closeMenu.emit()">Productos</a>
+  <a class="if-sidebar-link" routerLink="/categories"    routerLinkActive="if-sidebar-link--active" (click)="closeMenu.emit()">Categorias</a>
+  <a class="if-sidebar-link" routerLink="/transactions"  routerLinkActive="if-sidebar-link--active" (click)="closeMenu.emit()">Transacciones</a>
   <div class="if-sidebar-footer">
     <a class="if-sidebar-link">Ajustes</a>
   </div>

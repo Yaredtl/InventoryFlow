@@ -4,12 +4,14 @@ import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
 import { routes } from './app.routes';
 import { apiErrorInterceptor } from './core/interceptors/api-error.interceptor';
+import { delayInterceptor } from './core/interceptors/delay.interceptor';
+import { spinnerInterceptor } from './core/interceptors/spinner.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideRouter(routes),
     provideClientHydration(withEventReplay()),
-    provideHttpClient(withInterceptors([apiErrorInterceptor]))
+    provideHttpClient(withInterceptors([spinnerInterceptor, delayInterceptor, apiErrorInterceptor]))
   ]
 };

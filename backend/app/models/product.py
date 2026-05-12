@@ -21,5 +21,5 @@ class Product(Base):
         "Category", back_populates="products"
     )
     transactions: Mapped[list["Transaction"]] = relationship(
-        "Transaction", back_populates="product"
+        "Transaction", back_populates="product", cascade="all, delete-orphan", passive_deletes=True
     )

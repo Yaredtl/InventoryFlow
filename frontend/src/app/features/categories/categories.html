@@ -5,7 +5,9 @@
       <h1 class="if-page-title">Categorias</h1>
       <p class="if-breadcrumb">Inicio &rsaquo; Categorias</p>
     </div>
-    <button class="if-btn-page-header" (click)="openCreate()">+ Anadir Categoria</button>
+    @if (!showForm()) {
+      <button class="if-btn-page-header" (click)="openCreate()">+ Anadir Categoria</button>
+    }
   </div>
 
   @if (showForm()) {
@@ -25,7 +27,10 @@
         </tr>
       </thead>
       <tbody>
-        @for (c of categories(); track c.id) {
+        @if (loading()) {
+          <tr><td class="if-table-loading" colspan="3"><div class="if-spinner"></div></td></tr>
+        } @else {
+          @for (c of categories(); track c.id) {
           <tr class="if-table-row">
             <td class="if-table-td--name">{{ c.name }}</td>
             <td class="if-table-td">{{ c.description ?? '—' }}</td>
@@ -34,10 +39,11 @@
               <button class="if-btn-delete" (click)="confirmDelete(c)">Eliminar</button>
             </td>
           </tr>
-        } @empty {
-          <tr>
-            <td class="if-table-empty" colspan="3">No hay categorias registradas.</td>
-          </tr>
+          } @empty {
+            <tr>
+              <td class="if-table-empty" colspan="3">No hay categorias registradas.</td>
+            </tr>
+          }
         }
       </tbody>
     </table>

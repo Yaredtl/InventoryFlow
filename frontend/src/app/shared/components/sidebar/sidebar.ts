@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
@@ -6,4 +6,7 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
   imports: [RouterLink, RouterLinkActive],
   templateUrl: './sidebar.html'
 })
-export class Sidebar {}
+export class Sidebar {
+  open = input(false);
+  closeMenu = output<void>();
+}

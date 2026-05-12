@@ -15,13 +15,18 @@ export class Categories implements OnInit {
 
   categories   = signal<Category[]>([]);
   showForm     = signal(false);
+  loading      = signal(false);
   editTarget   = signal<Category | null>(null);
   deleteTarget = signal<Category | null>(null);
 
   ngOnInit(): void { this.load(); }
 
   load(): void {
-    this.svc.getAll().subscribe(c => this.categories.set(c));
+    this.loading.set(true);
+    this.svc.getAll().subscribe({
+      next: c => { this.categories.set(c); this.loading.set(false); },
+      error: () => this.loading.set(false)
+    });
   }
 
   openCreate(): void {
@@ -47,7 +52,7 @@ export class Categories implements OnInit {
     if (!c) return;
     this.svc.remove(c.id).subscribe({
       next: () => {
-        this.toast.success('Eliminado', `${c.name} eliminada correctamente.`);
+        this.toast.danger('Eliminado', `${c.name} eliminada correctamente.`);
         this.deleteTarget.set(null);
         this.load();
       },
